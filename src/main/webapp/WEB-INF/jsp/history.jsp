@@ -43,7 +43,7 @@
     </c:choose>
 
     <div>
-        <form action="${contextPath}/index">
+        <form action="${contextPath}/">
             <button class="btn btn-primary">Вернуться на главную</button>
         </form>
     </div>

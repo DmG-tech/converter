@@ -13,7 +13,7 @@
  - Spring Boot 2.2.4
  - Spring Security
  - JSP, JSTL
- - PostgreSQL 12
+ - PostgresSQL 12
  - HTML5/CSS(Bootstrap)
  - JavaScript
 
@@ -43,8 +43,5 @@ CREATE DATABASE currency_converter
   Для отключения этой функции необходимо в файле **application.properties** 
   изменить значение переменной **spring.datasource.initialization-mode** с **always** на **never**
   - Запуск из среды разработки: запустить **CurrencyConverterApplication.java**
-  - Запуск из командной строки из корневой папки **./mvnw spring-boot:run** (**mvnw spring-boot:run** для Windows)
-  - Создание исполняемого **jar** командой  **./mvnw clean package** (**mvnw clean package** для Windows)
-  - Запуск **jar** файла из командной строки:     перейти в папку с **jar** файлом и воспользоваться командой **java -jar currency-converter-0.0.1-SNAPSHOT.jar**
   - Для тестирования приложения можно воспользоваться данными пользователей из файла **src\main\resources\data.sql** или создать нового пользователя
   

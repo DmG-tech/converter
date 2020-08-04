@@ -5,6 +5,7 @@ import dmg.converter.util.MyDoubleParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -20,18 +21,25 @@ import java.time.format.DateTimeFormatter;
 public class CbrService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final String URL_CBR = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=%s";
+    /*private final String URL_CBR = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=%s";
 
-    private final String URL_CBR_DEFAULT = "http://www.cbr.ru/scripts/XML_daily.asp?";
+    private final String URL_CBR_DEFAULT = "http://www.cbr.ru/scripts/XML_daily.asp?";*/
+
+    @Value("${cbr.url.for.quotes}")
+    private String urlCbr;
+
+    @Value("${cbr.url.for.quotes.default}")
+    private String urlCbrDefault;
 
     @Autowired
     private CurrencyService currencyService;
 
     private Document getDocOfQuotes(LocalDate date) throws ParserConfigurationException, IOException, SAXException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String url = String.format(URL_CBR, date.format(formatter));
+        String url = String.format(urlCbr, date.format(formatter));
 
         log.info("try get data for input date {}", date.format(formatter));
+        log.info("try get data for url {}", url);
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -39,7 +47,8 @@ public class CbrService {
         if (document == null) {
 
             log.debug("failed to get data for input date");
-            document = builder.parse(URL_CBR_DEFAULT);
+            log.info("try get data for url {}", urlCbrDefault);
+            document = builder.parse(urlCbrDefault);
         }
         return document;
     }
